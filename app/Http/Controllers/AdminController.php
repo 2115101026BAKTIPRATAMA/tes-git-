@@ -11,25 +11,35 @@ use Illuminate\support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index( Request $request){
         $admin= Admin2::all();
         
         $Olahan= Olahan::all();
         
         $title ="Dasboard";
 
-        $admins = new admin2;
-        if(isset($_GET['m'])){
-            $m=$_GET['m'];
-            $admins=$admins->where('Olahan_id',"%$m%");
-        }
-        if(isset($_GET['id'])&&$_GET['id']!=''){
-            $admins=$admins->where('id' , $_GET['id']);
-        }
+        // $admins = new admin2;
+        // if(isset($_GET['m'])){
+        //     $m=$_GET['m'];
+        //     $admins=$admins->where('Olahan_id',"%$m%");
+        // }
+        // if(isset($_GET['id'])&&$_GET['id']!=''){
+        //     $admins=$admins->where('id' , $_GET['id']);
+        // }
 
-        $admins=$admins->paginate(2);
+        // $admins=$admins->paginate(2);
+
+
+
+        $katakunci = $request->katakunci;
+        if(strlen($katakunci)){
+            $admin = Admin2::where('Olahan_id','like',"%$katakunci%")
+            ->orwhere('rate_id','like',"%$katakunci%")
+            ->paginate(4);
+            
+        }
       
-        return view('admin.admin',compact('title','admin','Olahan','admins'));
+        return view('admin.admin',compact('title','admin','Olahan'));
     }
 
     public function create(){

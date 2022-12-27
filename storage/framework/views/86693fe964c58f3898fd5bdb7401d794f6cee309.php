@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\Bakti Pratama\Documents\Kecak\kecak\resources\views/frontpage/calendar.blade.php ENDPATH**/ ?>
